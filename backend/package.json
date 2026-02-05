@@ -1,0 +1,25 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "The backend part of this demo project",
+  "keywords": [
+    "node.js",
+    "ai",
+    "ux",
+    "ollama"
+  ],
+  "license": "ISC",
+  "author": "Péter Börcsök",
+  "type": "commonjs",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "ollama": "^0.6.3"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.1"
+  }
+}
