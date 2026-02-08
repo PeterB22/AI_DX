@@ -1,0 +1,8 @@
+<main>
+  <app-search></app-search>
+  <div class="articles-wrapper">
+    <app-article [article]="(articles$ | async)?.text"></app-article>
+    <!-- @for (article of (articles$ | async); track article) {
+    } -->
+  </div>
+</main>
