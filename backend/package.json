@@ -10,12 +10,14 @@
   ],
   "license": "ISC",
   "author": "Péter Börcsök",
-  "type": "commonjs",
+  "type": "module",
   "main": "app.js",
   "scripts": {
+    "start": "node app.js",
     "test": "test"
   },
   "dependencies": {
+    "cors": "^2.8.6",
     "express": "^5.2.1",
     "ollama": "^0.6.3"
   },
