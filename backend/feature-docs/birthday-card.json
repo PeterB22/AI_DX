@@ -1,0 +1,9 @@
+{
+    "id": "birthday",
+    "projectId":"birthday",
+    "keywords": ["birthday", "birthday-card"],
+    "entryPoints:" : [
+        "birthday/script.js"
+    ],
+    "name": "Birthday card"
+}

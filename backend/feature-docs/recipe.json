@@ -1,0 +1,9 @@
+{
+    "id": "recipe",
+    "projectId":"conference",
+    "keywords": ["recipe", "recipe filter", "recipe repository", "recipe search"],
+    "entryPoints:" : [
+        "conference/src/app/recipe/public-api.ts"
+    ],
+    "name": "Recipe"
+}

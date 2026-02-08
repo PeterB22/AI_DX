@@ -1,0 +1,9 @@
+{
+    "id": "meal planner",
+    "projectId":"conference",
+    "keywords": ["meal planner", "meal repository", "add recipe button"],
+    "entryPoints:" : [
+        "conference/src/app/meal-planner/public-api.ts"
+    ],
+    "name": "Meal planner"
+}
