@@ -1,0 +1,19 @@
+:host {
+    header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 10px;
+        app-search {
+            width: 100%;
+        }
+    }
+    .articles-wrapper {
+        app-article:not(:empty) {
+            margin: 4px;
+            padding: 4px;
+        }
+        border-radius: 4px;
+        background-color: var(--mat-sys-surface-variant);
+    }
+}

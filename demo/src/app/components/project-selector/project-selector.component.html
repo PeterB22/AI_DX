@@ -1,3 +1,11 @@
-<p>
-  project-selector works!
-</p>
+
+@if(features$ | async; as features) {
+    <mat-form-field>
+        <mat-label>Project:</mat-label>
+        <mat-select [value]="features[0]" (selectionChange)="onChangedSelection($event)">
+            @for(feature of features; track feature) {
+                <mat-option [value]="feature">{{feature}}</mat-option>
+            }
+        </mat-select>
+    </mat-form-field>
+}
