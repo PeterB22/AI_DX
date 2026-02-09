@@ -7,3 +7,7 @@ export const updateProjectId = createAction('[Search] Change project id',
 export const updateQuery = createAction('[Search] Change query',
     props<{ query: string }>()
 );
+
+export const updateLoading = createAction('[Search] Change loading',
+    props<{ loading: boolean }>()
+);

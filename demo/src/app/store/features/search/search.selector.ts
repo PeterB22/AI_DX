@@ -3,6 +3,7 @@ import { createSelector } from "@ngrx/store";
 export interface SearchState {
   projectId: string;
   query: string;
+  loading: boolean;
 }
 
 export interface AppState {
@@ -24,3 +25,10 @@ export const selectQuery = createSelector(
         return searchState.query;
     }
 )
+
+export const selectLoading = createSelector(
+    selectSearch,
+    (searchState: SearchState) => {
+        return searchState.loading;
+    }
+);

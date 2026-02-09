@@ -8,6 +8,9 @@
             width: 100%;
         }
     }
+    mat-progress-bar {
+        margin-top: -20px;
+    }
     .articles-wrapper {
         app-article:not(:empty) {
             margin: 4px;

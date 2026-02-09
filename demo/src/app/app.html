@@ -2,6 +2,9 @@
   <app-search></app-search>
   <app-project-selector></app-project-selector>
 </header>
+@if (loading$ | async) {
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+}
 <main>
   <div class="articles-wrapper">
     <app-article [article]="(articles$ | async)?.text"></app-article>

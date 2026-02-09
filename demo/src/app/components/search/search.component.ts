@@ -4,9 +4,8 @@ import { select, Store } from '@ngrx/store';
 import { selectProjectId, selectQuery } from '../../store/features/search/search.selector';
 import { MatFormField } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
-import { MatIcon } from '@angular/material/icon';
 import { updateQuery } from '../../store/features/search/search.action';
-import { debounceTime, filter, withLatestFrom } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, switchMap, withLatestFrom } from 'rxjs';
 import { SearchRequest } from '../../models/models';
 
 @Component({
@@ -23,18 +22,23 @@ export class SearchComponent {
   ngAfterViewInit() {
     this.store.pipe(
       select(selectQuery),
-      debounceTime(300),
+      distinctUntilChanged(),
+      debounceTime(500),
       withLatestFrom(this.store.pipe(
-        select(selectProjectId)
+        select(selectProjectId),
+        distinctUntilChanged()
       )),
       filter(([query, projectId]) => Boolean(query) && Boolean(projectId)),
-    ).subscribe(([query, projectId]) => {
-      const searchRequest: SearchRequest = {
-        query,
-        projectId
-      };
-      this.searchService.search(searchRequest);
-    })
+      switchMap(([query, projectId]) => {
+        const searchRequest: SearchRequest = {
+          query,
+          projectId
+        };
+        return this.searchService.search(searchRequest);
+      })
+    ).subscribe(searchResponse => {
+      this.searchService.searchResult$.next(searchResponse);
+    });
   }
 
   onChange(inputEvent: Event) {
