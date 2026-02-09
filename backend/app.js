@@ -45,9 +45,11 @@ app.post('/api/search', async (request, response) => {
   return response.json(aiAnswer);
 });
 
-app.get('/api/features', async(request, response) => {
+app.get('/api/projects', async(request, response) => {
   const allFeatures = getAllFeatures();
-  return response.json(allFeatures);
+  const featuresProjectId = allFeatures.map(feature => feature.projectId);
+  const uniqueProjectIds = [...new Set(featuresProjectId)];
+  return response.json(uniqueProjectIds);
 });
 
 app.listen(3000, () => {
