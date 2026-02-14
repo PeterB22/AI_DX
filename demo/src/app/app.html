@@ -1,5 +1,4 @@
 <header>
-  <app-search></app-search>
   <app-project-selector></app-project-selector>
 </header>
 @if (loading$ | async) {
@@ -7,6 +6,7 @@
 }
 <main>
   <div class="articles-wrapper">
-    <app-article [article]="(articles$ | async)?.text"></app-article>
+    <app-article [article]="(response$ |async)?.text"></app-article>
   </div>
+  <app-search (response)="onResponse($event)"></app-search>
 </main>

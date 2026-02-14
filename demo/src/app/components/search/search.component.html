@@ -1,3 +1,7 @@
 <mat-form-field>
-    <input matInput (input)="onChange($event)" placeholder="Ask a feature">
+    <mat-label>Ask a feature</mat-label>
+    <input matInput (input)="onChange($event)" (keyup.enter)="onClick()" #inputEl>
+    <button [disabled]="searchDisabled$ | async" (click)="onClick()" matMiniFab matSuffix>
+        <mat-icon>send</mat-icon>
+    </button>
 </mat-form-field>

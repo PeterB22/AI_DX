@@ -1,29 +1,41 @@
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, ElementRef, EventEmitter, inject, Output, ViewChild } from '@angular/core';
 import { SearchService } from '../../providers/search.service';
 import { select, Store } from '@ngrx/store';
-import { selectProjectId, selectQuery } from '../../store/features/search/search.selector';
-import { MatFormField } from '@angular/material/form-field';
+import { MatFormField, MatLabel, MatSuffix } from '@angular/material/form-field';
 import { MatInput } from '@angular/material/input';
 import { updateQuery } from '../../store/features/search/search.action';
-import { debounceTime, distinctUntilChanged, filter, switchMap, withLatestFrom } from 'rxjs';
-import { SearchRequest } from '../../models/models';
+import { MatButton, MatMiniFabButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
+import { selectLoading, selectProjectId, selectQuery } from '../../store/features/search/search.selector';
+import { AsyncPipe } from '@angular/common';
+import { distinctUntilChanged, filter, first, map, merge, switchMap, tap, withLatestFrom } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { SearchRequest, SearchResponse } from '../../models/models';
 
 @Component({
   selector: 'app-search',
-  imports: [MatFormField, MatInput],
+  imports: [MatFormField, MatInput, MatIcon, MatSuffix, MatLabel, MatMiniFabButton, AsyncPipe],
   templateUrl: './search.component.html',
   styleUrls: ['./search.component.scss']
 })
 export class SearchComponent {
 
   private searchService = inject(SearchService);
+  private destroyRef = inject(DestroyRef);
   private store = inject(Store);
+  @ViewChild('inputEl') inputEl!: ElementRef<HTMLInputElement>;
 
-  ngAfterViewInit() {
+  searchDisabled$ = merge(
+    this.store.pipe(select(selectLoading)),
+    this.store.pipe(select(selectQuery)).pipe(
+      map(query => query?.length === 0)
+    )
+  );
+  @Output() response: EventEmitter<SearchResponse> = new EventEmitter<SearchResponse>();
+
+  onClick() {
     this.store.pipe(
       select(selectQuery),
-      distinctUntilChanged(),
-      debounceTime(500),
       withLatestFrom(this.store.pipe(
         select(selectProjectId),
         distinctUntilChanged()
@@ -34,11 +46,14 @@ export class SearchComponent {
           query,
           projectId
         };
-        return this.searchService.search(searchRequest);
-      })
-    ).subscribe(searchResponse => {
-      this.searchService.searchResult$.next(searchResponse);
-    });
+        return this.searchService.search(searchRequest).pipe(
+          tap(() => this.inputEl.nativeElement.value = '')
+        );
+      }),
+      first()
+    ).subscribe((searchResult) => {
+      this.response.emit(searchResult);
+    })
   }
 
   onChange(inputEvent: Event) {

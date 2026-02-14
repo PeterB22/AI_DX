@@ -1,22 +1,32 @@
 :host {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
     header {
         display: flex;
-        justify-content: space-between;
+        justify-content: center;
         align-items: center;
         gap: 10px;
+        flex: 0 0 auto;
+        border-bottom: 1px solid #e5e5e5;
+    }
+    main {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        overflow: hidden;
+        .articles-wrapper {
+            display: flex;
+            flex-direction: column;
+            flex: 1 1 auto;
+            overflow-y: auto;
+            app-article:not(:empty) {
+                margin: 4px;
+                padding: 4px;
+            }
+        }
         app-search {
-            width: 100%;
+            flex: 0 0 auto;
         }
-    }
-    mat-progress-bar {
-        margin-top: -20px;
-    }
-    .articles-wrapper {
-        app-article:not(:empty) {
-            margin: 4px;
-            padding: 4px;
-        }
-        border-radius: 4px;
-        background-color: var(--mat-sys-surface-variant);
     }
 }
