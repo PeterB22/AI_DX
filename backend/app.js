@@ -20,28 +20,27 @@ function getAllFeatures() {
   });
 }
 
-function loadRelevantJson(query, projectId) {
+function getSystemRules() {
+  const rulesPath = path.join(__dirname, 'rules.txt');
+  const systemRules = fs.readFileSync(rulesPath, 'utf-8');
+  return systemRules;
+}
+
+function loadRelevantJson(projectId) {
   const allFeatures = getAllFeatures();
-  return allFeatures.filter(feature => {
-    const matchingFeatureInProject = feature.projectId === projectId;
-    const matchingFeature = feature.keywords.some(keyword => {
-      return query.toLowerCase().includes(keyword.toLowerCase());
-    });
-    return matchingFeatureInProject && matchingFeature;
-  });
+  const targetFeatures = allFeatures.filter(feature => feature.projectId === projectId);
+  const possibleCompatibleOtherFeatures = targetFeatures.flatMap(feature => feature.compatibleWith || []);
+  const compatibleFeatures = allFeatures.filter(feature => possibleCompatibleOtherFeatures.includes(feature.name)) || [];
+  return { targetFeatures, compatibleFeatures }
 }
 
 // API Layer
 app.post('/api/search', async (request, response) => {
   const { query, projectId } = request.body;
-  const features = loadRelevantJson(query, projectId);
-  if (!features.length) {
-    return response.json({
-      text: `No documented features match ${query} for project ${projectId}`,
-      entryPoints: []
-    });
-  }
-  const aiAnswer = await callOllama(query, features);
+  const { targetFeatures, compatibleFeatures } = loadRelevantJson(projectId);
+  const systemRules = getSystemRules();
+  const aiFeatures = [...targetFeatures, ...compatibleFeatures];
+  const aiAnswer = await callOllama(query, aiFeatures, systemRules);
   return response.json(aiAnswer);
 });
 
