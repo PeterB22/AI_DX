@@ -11,10 +11,11 @@ import { ProjectSelectorComponent } from './components/project-selector/project-
 import { MatProgressBar } from '@angular/material/progress-bar';
 import { select, Store } from '@ngrx/store';
 import { selectLoading } from './store/features/search/search.selector';
+import { FeatureListComponent } from './components/feature-list/feature-list.component';
 
 @Component({
   selector: 'app-root',
-  imports: [SearchComponent, ArticleComponent, ProjectSelectorComponent, AsyncPipe, MatProgressBar],
+  imports: [SearchComponent, ArticleComponent, ProjectSelectorComponent, AsyncPipe, MatProgressBar, FeatureListComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss',
   providers: [SearchService, MarkdownService, ProjectSelectorService]

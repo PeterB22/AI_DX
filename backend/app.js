@@ -51,6 +51,15 @@ app.get('/api/projects', async(request, response) => {
   return response.json(uniqueProjectIds);
 });
 
+app.post('/api/features', async(request, response) => {
+  const allFeatures = getAllFeatures();
+  const { projectId } = request.body;
+  const featureNames = allFeatures
+    .filter(feature => feature.projectId === projectId)
+    .map(feature => feature.name);
+  return response.json(featureNames);
+})
+
 app.listen(3000, () => {
   console.log('backend running on port 3000');
 });

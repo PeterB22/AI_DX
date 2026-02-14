@@ -1,0 +1,8 @@
+<span class="feature-title">Features:</span>
+@if (featureList$ | async; as featureList) {
+  <mat-chip-set>
+    @for(feature of featureList; track feature) {
+      <mat-chip disabled>{{feature}}</mat-chip>
+    }
+  </mat-chip-set>
+}

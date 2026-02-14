@@ -4,11 +4,16 @@
     height: 100vh;
     header {
         display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 10px;
+        flex-wrap: wrap;
         flex: 0 0 auto;
+        margin-bottom: 10px;
         border-bottom: 1px solid #e5e5e5;
+        app-project-selector {
+            margin-right: 10px;
+        }
+    }
+    mat-progress-bar {
+        margin-top: -10px;
     }
     main {
         flex: 1 1 auto;
