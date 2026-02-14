@@ -16,7 +16,20 @@ export class ArticleComponent {
   @Input() set article(value: string | undefined) {
     if (value) {
       const text = this.markdownService.parse(value) as string;
-      this.renderer.setProperty(this.elementRef.nativeElement, 'innerHTML', text);
+      this.setContentChunk(text);
     }
+  }
+
+  private setContentChunk(text: string, speed = 5) {
+    let index = 0;
+    const length = text.length;
+    const interval = setInterval(() => {
+      this.renderer.setProperty(this.elementRef.nativeElement, 'innerHTML', text.slice(0, index));
+      index++;
+
+      if (index > length) {
+        clearInterval(interval);
+      }
+    }, speed);
   }
 }
