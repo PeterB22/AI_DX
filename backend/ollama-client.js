@@ -1,6 +1,6 @@
 import ollama from 'ollama';
 
-export async function callOllama(query, features) {
+export async function callOllama(query, features, systemRules) {
     const systemFeatureMessages = features.map(feature => {
         return {
             role: 'system',
@@ -12,8 +12,7 @@ export async function callOllama(query, features) {
         messages: [
             {
                 role: 'system',
-                content: `You are a technical documentation assistant.
-                Use the provided feature descriptions. If something is missing, say so.`
+                content: systemRules
             },
             ...systemFeatureMessages,
             {
