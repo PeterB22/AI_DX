@@ -1,9 +1,24 @@
 {
-    "id": "recipe",
-    "projectId":"conference",
-    "keywords": ["recipe", "recipe filter", "recipe repository", "recipe search"],
-    "entryPoints:" : [
-        "conference/src/app/recipe/public-api.ts"
-    ],
-    "name": "Recipe"
+  "id": "recipe manager",
+  "projectId": "conference",
+  "entryPoints": ["conference/src/app/recipe-manager/public-api.ts"],
+  "name": "Recipe Manager",
+  "capabilities": [
+    "Fetch predefined recipes from the Recipe API (recipe-api.host)",
+    "Render recipes as interactive cards with details",
+    "Search and filter recipes by keywords",
+    "Filter recipes by number of ingredients",
+    "Filter recipes by number of preparation steps"
+  ],
+  "interactions": [
+    "Depends on Recipe API to load recipe data",
+    "Integrates with the UI card renderer to display recipes",
+    "May interact with user preferences to highlight favorite recipes"
+  ],
+  "purpose": "Allows users to browse, search, and filter predefined recipes presented as cards.",
+  "userRoles": ["End User", "Chef"],
+  "status": "stable",
+  "compatibleWith": ["birthday card"],
+  "notes": "The search bar allows filtering dynamically as the recipe list loads. Each recipe card can optionally show images, prep time, and rating.",
+  "tags": ["recipe", "recipe manager", "conference"]
 }

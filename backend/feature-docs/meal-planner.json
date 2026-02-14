@@ -1,9 +1,22 @@
 {
     "id": "meal planner",
     "projectId":"conference",
-    "keywords": ["meal planner", "meal repository", "add recipe button"],
     "entryPoints:" : [
         "conference/src/app/meal-planner/public-api.ts"
     ],
-    "name": "Meal planner"
+    "name": "Meal planner",
+    "interactions": [
+        "Uses the Recipe API to fetch ingredients",
+        "Integrates with the Conference Schedule feature to suggest meals per day"
+    ],
+    "capabilities": [
+        "Add new recipes to the repository",
+        "View and edit existing meals",
+        "Generate a meal plan for specific dates or events"
+    ],
+    "purpose": "Allow users to plan meals for a conference, store recipes, and manage meal preferences.",
+    "userRoles": ["Event organizer", "Chef"],
+    "status": "stable",
+    "notes": "The add-recipe button is currently only available for admins.",
+    "tags": ["meals", "meal planner", "conference"]
 }

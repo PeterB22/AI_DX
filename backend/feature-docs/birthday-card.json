@@ -1,9 +1,24 @@
+
 {
-    "id": "birthday",
-    "projectId":"birthday",
-    "keywords": ["birthday", "birthday-card"],
-    "entryPoints:" : [
-        "birthday/script.js"
-    ],
-    "name": "Birthday card"
+  "id": "birthday",
+  "projectId": "birthday",
+  "entryPoints": ["birthday/scripts.js"],
+  "name": "Birthday Card",
+  "interactions": [
+    "Depends on the User Data API to get names, profile images, or preferences",
+    "Integrates with Notification Service to alert the user when the card is ready",
+    "May connect to Social Sharing APIs to send the card externally"
+  ],
+  "capabilities": [
+    "Fetch external user data to personalize the card",
+    "Render a virtual card preview on the screen",
+    "Animate or display interactive elements (e.g., confetti)",
+    "Allow users to send or share the card"
+  ],
+  "purpose": "Generates a virtual birthday card for users, showing personalized content once external data is loaded.",
+  "userRoles": ["End User"],
+  "status": "stable",
+  "compatibleWith": ["recipe manager"],
+  "notes": "The virtual card is displayed only after external data is fully loaded. Animated effects are optional and can be toggled.",
+  "tags": ["birthday card", "virtual card", "birthday"]
 }
